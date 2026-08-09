@@ -1,0 +1,36 @@
+---
+const year = new Date().getFullYear();
+
+const links = [
+  { href: "/products", label: "Products" },
+  { href: "/documentation", label: "Documentation" },
+  { href: "/privacy-policy", label: "Privacy Policy" },
+  { href: "/terms-of-service", label: "Terms of Service" },
+  { href: "/contact", label: "Contact" },
+];
+---
+
+<footer style={`background-color: var(--footer-background); color: var(--footer-text);`}>
+  <div
+    class="mx-auto flex max-w-[var(--content-max-width)] flex-col gap-6 px-6 py-12 sm:flex-row sm:items-center sm:justify-between"
+  >
+    <p class="font-body text-sm" style={`color: var(--footer-text-muted);`}>
+      &copy; {year} Clockwork Otter Foundry. All rights reserved.
+    </p>
+
+    <ul class="flex flex-wrap gap-x-6 gap-y-2">
+      {
+        links.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="font-body text-sm text-[var(--footer-text)] transition-colors duration-[var(--transition-fast)] hover:text-[var(--navigation-hover)]"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</footer>

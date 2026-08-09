@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProductCard from "../../components/ProductCard.astro";
+
+const products = [
+  {
+    name: "[Placeholder Product Name]",
+    description: "[Placeholder — one-sentence product description]",
+    href: "/products/example-product",
+  },
+  {
+    name: "[Placeholder Product Name]",
+    description: "[Placeholder — one-sentence product description]",
+    href: "/products/example-product",
+  },
+  {
+    name: "[Placeholder Product Name]",
+    description: "[Placeholder — one-sentence product description]",
+    href: "/products/example-product",
+  },
+];
+---
+
+<BaseLayout title="Products">
+  <section class="px-6 py-24">
+    <div class="mx-auto max-w-[var(--content-max-width)]">
+      <h1>Products</h1>
+      <p class="text-body-large mt-4 max-w-[var(--reading-max-width)] text-[var(--color-text-secondary)]">
+        [Placeholder — one to two sentence introduction to the Clockwork Otter Foundry product
+        lineup]
+      </p>
+      <div class="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          products.map((product) => (
+            <ProductCard name={product.name} description={product.description} href={product.href} />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

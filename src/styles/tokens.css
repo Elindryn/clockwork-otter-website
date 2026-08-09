@@ -1,0 +1,188 @@
+/*
+ * Design tokens — canonical implementation of
+ * ../../../clockwork-otter-brand/docs/foundations/06-design-tokens.md
+ *
+ * Token names are taken verbatim from that document. Two blocks:
+ *
+ * 1. `@theme` — tokens Tailwind turns into utility classes (colors, fonts,
+ *    font sizes/weights, line heights, radius, breakpoints, spacing base).
+ *    Tailwind's own default palette/type/radius scales are reset to
+ *    `initial` first so only brand-approved values are ever available as
+ *    utilities (see CLAUDE.md: "configure Tailwind theme values from the
+ *    design tokens... rather than hard-coding Tailwind's default scale").
+ *
+ * 2. Plain `:root` — tokens with no Tailwind utility equivalent (motion,
+ *    z-index, layout, spacing-as-named-variables, component tokens).
+ *    These are consumed directly via var() in component styles.
+ *
+ * Three token categories are declared in the source doc by name only, with
+ * no assigned value (semantic status colors, shadows, generic border
+ * colors) — see the Phase 1 completion report for why no values were
+ * invented here.
+ */
+
+@theme {
+  /* Reset Tailwind's default scales — brand tokens replace them entirely. */
+  --color-*: initial;
+  --font-*: initial;
+  --text-*: initial;
+  --font-weight-*: initial;
+  --radius-*: initial;
+  --breakpoint-*: initial;
+
+  /* ---- Color: brand (raw) ---- */
+  --color-brand-charcoal: #2b2b2b;
+  --color-brand-copper: #b87333;
+  --color-brand-steel: #4f6d8a;
+
+  /* ---- Color: surfaces (raw) ---- */
+  --color-background: #f7f7f5;
+  --color-surface: #ffffff;
+
+  /* ---- Color: typography (raw) ---- */
+  --color-text-primary: #222222;
+  --color-text-secondary: #555555;
+  --color-text-disabled: #777777; /* Provisional per 04-color-system.md */
+
+  /* ---- Color: actions (semantic, derived from raw brand colors) ---- */
+  --color-action-primary: var(--color-brand-steel);
+  --color-action-secondary: var(--color-brand-copper);
+
+  /* ---- Typography: font families ---- */
+  --font-brand: "Bebas Neue", sans-serif;
+  --font-heading: "Montserrat", sans-serif;
+  --font-body: "Inter", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-code: "JetBrains Mono", monospace;
+
+  /* ---- Typography: font sizes ---- */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 3rem;
+
+  /* ---- Typography: font weights (only the weights we actually load) ---- */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* ---- Typography: line heights ----
+   * Declared as overrides of Tailwind's `leading-*` keys; "tight" and
+   * "loose" intentionally differ from Tailwind's own defaults (1.25/2) to
+   * match the brand's values (1.2/1.8) exactly.
+   */
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-reading: 1.6;
+  --leading-loose: 1.8;
+
+  /* ---- Radius ---- */
+  --radius-none: 0;
+  --radius-small: 4px;
+  --radius-medium: 6px;
+  --radius-card: 8px;
+  --radius-large: 12px;
+  --radius-round: 9999px;
+
+  /* ---- Breakpoints ---- */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* ---- Spacing base ----
+   * 4px matches Tailwind's own default (0.25rem @ 16px root) — pinned
+   * explicitly rather than left as an implicit coincidence, per the
+   * token system's 8-point spacing scale.
+   */
+  --spacing: 4px;
+}
+
+:root {
+  /* ---- Line heights, by name (for direct var() use outside Tailwind) ---- */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-reading: 1.6;
+  --line-height-loose: 1.8;
+
+  /* ---- Spacing, by name ----
+   * Tailwind's numeric spacing utilities (p-4, gap-6, ...) already resolve
+   * to this same 4px-based scale via --spacing above. These named
+   * variables exist for non-utility CSS and for fidelity to the token
+   * doc's exact names. Note the scales don't share numbering: Tailwind's
+   * `p-4` = 16px (4 × --spacing), NOT --space-4 (which is 4px).
+   */
+  --space-0: 0;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --space-96: 96px;
+  --space-128: 128px;
+
+  /* ---- Borders ---- */
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+
+  /* ---- Shadows ----
+   * --shadow-soft / --shadow-medium are declared without values in
+   * 06-design-tokens.md. Not invented here — see completion report.
+   */
+  --shadow-none: none;
+
+  /* ---- Motion ---- */
+  --transition-fast: 150ms;
+  --transition-standard: 200ms;
+  --transition-slow: 300ms;
+
+  /* ---- Layering ---- */
+  --z-dropdown: 100;
+  --z-modal: 500;
+  --z-toast: 700;
+  --z-tooltip: 900;
+
+  /* ---- Layout ---- */
+  --content-max-width: 1200px;
+  --reading-max-width: 760px; /* within the 700–800px range in 07-layout-system.md */
+  --sidebar-width: 280px;
+  --header-height: 72px;
+  --footer-height: auto;
+
+  /* ---- Component tokens: Navigation ---- */
+  --navigation-height: var(--header-height);
+  --navigation-background: var(--color-brand-charcoal);
+  --navigation-text: var(--color-background);
+  --navigation-hover: var(--color-brand-steel);
+  --navigation-active-indicator: var(--color-brand-copper);
+  --navigation-divider: var(--color-brand-copper);
+
+  /* ---- Component tokens: Footer ---- */
+  --footer-background: var(--color-brand-charcoal);
+  --footer-text: var(--color-background);
+  --footer-text-muted: color-mix(in srgb, var(--color-background) 65%, transparent);
+
+  /* ---- Component tokens: Button ----
+   * Deferred in Phase 1 (no Button component existed yet). Values are
+   * derived from already-approved semantic/raw tokens only — no new brand
+   * colors invented, per 04-color-system.md's Buttons section (Steel Blue
+   * primary, transparent/Copper secondary) and Prohibited Usage list.
+   * Hover states use color-mix() on the base token, same technique as
+   * --footer-text-muted above, since no hover color is specified anywhere
+   * in the design system.
+   */
+  --button-radius: var(--radius-medium);
+  --button-primary-background: var(--color-action-primary);
+  --button-primary-background-hover: color-mix(in srgb, var(--color-action-primary) 85%, black);
+  --button-primary-text: var(--color-surface);
+  --button-secondary-border: var(--color-action-secondary);
+  --button-secondary-text: var(--color-action-secondary);
+  --button-secondary-background-hover: color-mix(in srgb, var(--color-action-secondary) 12%, transparent);
+}
