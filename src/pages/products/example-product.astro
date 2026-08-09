@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Button from "../../components/Button.astro";
+
+const features = [
+  "[Placeholder — feature one]",
+  "[Placeholder — feature two]",
+  "[Placeholder — feature three]",
+];
+---
+
+<BaseLayout title="[Placeholder Product Name]">
+  <article class="px-6 py-24">
+    <div class="mx-auto max-w-[var(--content-max-width)]">
+      <!-- 1. Product title -->
+      <h1>[Placeholder Product Name]</h1>
+
+      <!-- 2. Short value statement -->
+      <p class="text-body-large mt-4 max-w-[var(--reading-max-width)] text-[var(--color-text-secondary)]">
+        [Placeholder — one-sentence value statement describing what this product does]
+      </p>
+
+      <!-- 3. Key features -->
+      <section class="mt-12">
+        <h2>Key features</h2>
+        <ul class="mt-4 list-disc space-y-2 pl-6 text-[var(--color-text-secondary)]">
+          {features.map((feature) => <li>{feature}</li>)}
+        </ul>
+      </section>
+
+      <!-- 4. Screenshot -->
+      <section class="mt-12">
+        <h2>Screenshot</h2>
+        <div
+          class="mt-4 flex aspect-video items-center justify-center rounded-[var(--radius-card)]"
+          style={`background-color: var(--color-surface);`}
+        >
+          <span class="text-[var(--color-text-secondary)]">[Placeholder Screenshot]</span>
+        </div>
+      </section>
+
+      <!-- 5. Documentation link -->
+      <section class="mt-12">
+        <h2>Documentation</h2>
+        <div class="mt-4">
+          <Button href="/documentation" variant="primary">View Documentation</Button>
+        </div>
+      </section>
+
+      <!-- 6. Download or installation -->
+      <section class="mt-12">
+        <h2>Download</h2>
+        <p class="mt-4 text-[var(--color-text-secondary)]">
+          [Placeholder — download not yet available]
+        </p>
+      </section>
+
+      <!-- 7. Technical information -->
+      <section class="mt-12">
+        <h2>Technical information</h2>
+        <p class="mt-4 text-[var(--color-text-secondary)]">
+          [Placeholder — technical information: system requirements, version, license]
+        </p>
+      </section>
+    </div>
+  </article>
+</BaseLayout>

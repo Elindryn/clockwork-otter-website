@@ -1,0 +1,80 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import ProductCard from "../components/ProductCard.astro";
+import logo from "../assets/images/logo/clockwork-otter-logo-vertical-white.svg";
+
+const products = [
+  {
+    name: "[Placeholder Product Name]",
+    description: "[Placeholder — one-sentence product description]",
+    href: "/products/example-product",
+  },
+  {
+    name: "[Placeholder Product Name]",
+    description: "[Placeholder — one-sentence product description]",
+    href: "/products/example-product",
+  },
+  {
+    name: "[Placeholder Product Name]",
+    description: "[Placeholder — one-sentence product description]",
+    href: "/products/example-product",
+  },
+];
+---
+
+<BaseLayout title="Home">
+  <!-- Hero -->
+  <section style={`background-color: var(--color-brand-charcoal);`} class="px-6 pt-4 pb-8">
+    <div class="mx-auto flex max-w-[var(--content-max-width)] flex-col items-center text-center">
+      <Image src={logo} alt="Clockwork Otter Foundry" width={224} height={281} class="h-auto w-40 sm:w-56" />
+      <h1 class="text-display mt-4 max-w-3xl text-[var(--color-background)]">
+        Crafted with precision. Designed for creativity.
+      </h1>
+      <p class="text-body-large mt-6 max-w-2xl text-[var(--color-background)] opacity-90">
+        [Placeholder — one-sentence description of Clockwork Otter Foundry]
+      </p>
+      <div class="mt-6">
+        <Button href="/products" variant="primary">View Products</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Introductory content -->
+  <section class="px-6 py-24">
+    <div class="mx-auto max-w-[var(--content-max-width)]">
+      <div class="max-w-[var(--reading-max-width)]">
+        <h2>[Placeholder — introductory section heading]</h2>
+        <p class="mt-4 text-[var(--color-text-secondary)]">
+          [Placeholder — one to two sentences introducing Clockwork Otter Foundry's approach to
+          building software.]
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product overview -->
+  <section class="px-6 py-24">
+    <div class="mx-auto max-w-[var(--content-max-width)]">
+      <h2>[Placeholder — product overview section heading]</h2>
+      <div class="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          products.map((product) => (
+            <ProductCard name={product.name} description={product.description} href={product.href} />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing call to action -->
+  <section class="px-6 py-24 text-center">
+    <div class="mx-auto max-w-[var(--reading-max-width)]">
+      <h2>[Placeholder — closing call-to-action heading]</h2>
+      <div class="mt-6 flex justify-center">
+        <Button href="/contact" variant="secondary">Contact Us</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
