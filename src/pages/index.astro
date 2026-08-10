@@ -5,23 +5,12 @@ import Button from "../components/Button.astro";
 import ProductCard from "../components/ProductCard.astro";
 import logo from "../assets/images/logo/clockwork-otter-logo-vertical-white.svg";
 
-const products = [
-  {
-    name: "[Placeholder Product Name]",
-    description: "[Placeholder — one-sentence product description]",
-    href: "/products/example-product",
-  },
-  {
-    name: "[Placeholder Product Name]",
-    description: "[Placeholder — one-sentence product description]",
-    href: "/products/example-product",
-  },
-  {
-    name: "[Placeholder Product Name]",
-    description: "[Placeholder — one-sentence product description]",
-    href: "/products/example-product",
-  },
-];
+const antiphon = {
+  name: "Antiphon",
+  description:
+    "Generate, validate, and convert EU-mandated e-invoice formats — XRechnung, Factur-X/ZUGFeRD, Peppol BIS UBL — from .NET, without a Java sidecar.",
+  href: "/products/antiphon",
+};
 ---
 
 <BaseLayout title="Home">
@@ -36,7 +25,7 @@ const products = [
         [Placeholder — one-sentence description of Clockwork Otter Foundry]
       </p>
       <div class="mt-6">
-        <Button href="/products" variant="primary">View Products</Button>
+        <Button href="/products/antiphon" variant="primary">Explore Antiphon</Button>
       </div>
     </div>
   </section>
@@ -58,12 +47,8 @@ const products = [
   <section class="px-6 py-24">
     <div class="mx-auto max-w-[var(--content-max-width)]">
       <h2>[Placeholder — product overview section heading]</h2>
-      <div class="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {
-          products.map((product) => (
-            <ProductCard name={product.name} description={product.description} href={product.href} />
-          ))
-        }
+      <div class="mt-12 max-w-[var(--reading-max-width)]">
+        <ProductCard name={antiphon.name} description={antiphon.description} href={antiphon.href} />
       </div>
     </div>
   </section>

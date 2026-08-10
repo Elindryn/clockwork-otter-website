@@ -1,0 +1,14 @@
+# Normalize all text files to LF line endings in the repository,
+# regardless of the OS or editor settings used to check them out.
+* text=auto eol=lf
+
+# Binary assets must never be touched by line-ending normalization.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary

@@ -10,7 +10,7 @@ const { currentPath } = Astro.props;
 
 const links = [
   { href: "/", label: "Home" },
-  { href: "/products", label: "Products" },
+  { href: "/products/antiphon", label: "Antiphon" },
   { href: "/documentation", label: "Documentation" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
@@ -29,7 +29,7 @@ const isActive = (href: string) =>
     aria-label="Primary"
   >
     <a href="/" class="flex items-center" aria-label="Clockwork Otter Foundry — home">
-      <Image src={logo} alt="Clockwork Otter Foundry" width={194} height={45} />
+      <Image src={logo} alt="Clockwork Otter Foundry" width={217} height={50} />
     </a>
 
     <ul class="flex items-center gap-8">
