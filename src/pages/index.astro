@@ -2,63 +2,75 @@
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/Button.astro";
-import ProductCard from "../components/ProductCard.astro";
 import logo from "../assets/images/logo/clockwork-otter-logo-vertical-white.svg";
-
-const antiphon = {
-  name: "Antiphon",
-  description:
-    "Generate, validate, and convert EU-mandated e-invoice formats — XRechnung, Factur-X/ZUGFeRD, Peppol BIS UBL — from .NET, without a Java sidecar.",
-  href: "/products/antiphon",
-};
 ---
 
-<BaseLayout title="Home">
+<BaseLayout
+  title="Clockwork Otter Foundry"
+  description="Thoughtfully engineered software that handles the complexity so you can focus on the work."
+>
   <!-- Hero -->
-  <section style={`background-color: var(--color-brand-charcoal);`} class="px-6 pt-4 pb-8">
+  <section
+    style={`background-color: var(--color-brand-charcoal); --color-focus-ring-outer: #ffffff;`}
+    class="px-6 pt-4 pb-8"
+  >
     <div class="mx-auto flex max-w-[var(--content-max-width)] flex-col items-center text-center">
       <Image src={logo} alt="Clockwork Otter Foundry" width={224} height={281} class="h-auto w-40 sm:w-56" />
       <h1 class="text-display mt-4 max-w-3xl text-[var(--color-background)]">
         Crafted with precision. Designed for creativity.
       </h1>
       <p class="text-body-large mt-6 max-w-2xl text-[var(--color-background)] opacity-90">
-        [Placeholder — one-sentence description of Clockwork Otter Foundry]
+        We build thoughtfully engineered software that handles the complexity so you can focus on
+        the work.
       </p>
       <div class="mt-6">
-        <Button href="/products/antiphon" variant="primary">Explore Antiphon</Button>
+        <Button href="/antiphon" variant="primary">Explore Antiphon</Button>
       </div>
     </div>
   </section>
 
-  <!-- Introductory content -->
+  <!-- Tools Built With Purpose -->
   <section class="px-6 py-24">
     <div class="mx-auto max-w-[var(--content-max-width)]">
       <div class="max-w-[var(--reading-max-width)]">
-        <h2>[Placeholder — introductory section heading]</h2>
+        <h2>Tools Built With Purpose</h2>
         <p class="mt-4 text-[var(--color-text-secondary)]">
-          [Placeholder — one to two sentences introducing Clockwork Otter Foundry's approach to
-          building software.]
+          Good software finds a clear path through complexity. We build focused tools that take
+          difficult technical work and make it clear, practical, and approachable.
+        </p>
+        <p class="mt-4 text-[var(--color-text-secondary)]">
+          That means being deliberate about what we build, how it works, and what we leave out.
+          Technology should support the work you're trying to do, not become the work itself.
+        </p>
+        <p class="mt-4 font-semibold text-[var(--color-text-primary)]">
+          Creativity is the goal. Software is the craft.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Product overview -->
+  <!-- Antiphon Home Page Introduction -->
   <section class="px-6 py-24">
     <div class="mx-auto max-w-[var(--content-max-width)]">
-      <h2>[Placeholder — product overview section heading]</h2>
-      <div class="mt-12 max-w-[var(--reading-max-width)]">
-        <ProductCard name={antiphon.name} description={antiphon.description} href={antiphon.href} />
-      </div>
-    </div>
-  </section>
-
-  <!-- Closing call to action -->
-  <section class="px-6 py-24 text-center">
-    <div class="mx-auto max-w-[var(--reading-max-width)]">
-      <h2>[Placeholder — closing call-to-action heading]</h2>
-      <div class="mt-6 flex justify-center">
-        <Button href="/contact" variant="secondary">Contact Us</Button>
+      <div class="max-w-[var(--reading-max-width)]">
+        <h2>Modern European e-invoicing, native to .NET.</h2>
+        <p class="mt-4 text-[var(--color-text-secondary)]">
+          Antiphon brings European e-invoicing standards directly into the .NET ecosystem,
+          integrated into your application rather than dependent on external online services,
+          Java sidecars, or other non-native infrastructure.
+        </p>
+        <p class="mt-4 text-[var(--color-text-secondary)]">
+          Generate, validate, parse, and work with standards-compliant electronic invoices
+          through familiar .NET APIs. Antiphon handles the complexity of the underlying standards
+          so your invoicing functionality remains part of your code, your architecture, and your
+          infrastructure.
+        </p>
+        <p class="mt-4 font-semibold text-[var(--color-text-primary)]">
+          Your code. Your infrastructure. No sidecars required.
+        </p>
+        <div class="mt-6">
+          <Button href="/antiphon" variant="primary">Explore Antiphon</Button>
+        </div>
       </div>
     </div>
   </section>
