@@ -2,6 +2,24 @@
 @import "./tokens.css";
 
 /*
+ * Self-hosted fonts (Phase 5) — only the weights actually referenced by
+ * the typography rules below. Bebas Neue 400 (.text-display); Montserrat
+ * 600/700 (h3/h4, h1/h2); Inter 400/500/600 (body default, font-medium,
+ * font-semibold); JetBrains Mono 400 (code/pre/kbd/samp — currently
+ * unused on any live page, kept for the rule that exists; weight 500
+ * dropped, see Phase 5 completion report). This is now the single place
+ * declaring font loading, replacing the removed Google Fonts CDN <link>
+ * tags that used to live in BaseLayout.astro.
+ */
+@import "@fontsource/bebas-neue/400.css";
+@import "@fontsource/montserrat/600.css";
+@import "@fontsource/montserrat/700.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/jetbrains-mono/400.css";
+
+/*
  * Global typography — base element styles implementing the hierarchy in
  * ../../../clockwork-otter-brand/docs/foundations/05-typography.md. Utility classes cover the two
  * roles with no matching HTML element (Display heading, Body Large).

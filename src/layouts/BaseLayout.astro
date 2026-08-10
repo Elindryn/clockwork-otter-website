@@ -23,13 +23,7 @@ const currentPath = Astro.url.pathname;
     <title>{title} · Clockwork Otter Foundry</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Font loading — only the approved weights from 05-typography.md. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-    />
+    <!-- Fonts are self-hosted (Phase 5) — loaded via src/styles/global.css. -->
   </head>
   <body class="flex min-h-screen flex-col">
     <Navigation currentPath={currentPath} />
