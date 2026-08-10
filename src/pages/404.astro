@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+---
+
+<BaseLayout title="Page Not Found" noindex={true}>
+  <div class="mx-auto max-w-[var(--content-max-width)] px-6 py-24 text-center">
+    <h1>404 — Page Not Found</h1>
+    <p class="mt-4 text-[var(--color-text-secondary)]">The page you're looking for isn't here.</p>
+    <div class="mt-8 flex justify-center">
+      <Button href="/" variant="primary">Return Home</Button>
+    </div>
+  </div>
+</BaseLayout>

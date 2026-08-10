@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/Button.astro";
+import BrandWatermark from "../components/BrandWatermark.astro";
 import logo from "../assets/images/logo/clockwork-otter-logo-vertical-white.svg";
 ---
 
@@ -24,13 +25,13 @@ import logo from "../assets/images/logo/clockwork-otter-logo-vertical-white.svg"
         the work.
       </p>
       <div class="mt-6">
-        <Button href="/antiphon" variant="primary">Explore Antiphon</Button>
+        <Button href="/antiphon/" variant="primary">Explore Antiphon</Button>
       </div>
     </div>
   </section>
 
   <!-- Tools Built With Purpose -->
-  <section class="px-6 py-24">
+  <section class="px-6 pt-24 pb-20">
     <div class="mx-auto max-w-[var(--content-max-width)]">
       <div class="max-w-[var(--reading-max-width)]">
         <h2>Tools Built With Purpose</h2>
@@ -42,17 +43,25 @@ import logo from "../assets/images/logo/clockwork-otter-logo-vertical-white.svg"
           That means being deliberate about what we build, how it works, and what we leave out.
           Technology should support the work you're trying to do, not become the work itself.
         </p>
-        <p class="mt-4 font-semibold text-[var(--color-text-primary)]">
-          Creativity is the goal. Software is the craft.
-        </p>
+        <div class="mt-8">
+          <div class="mb-3 h-px w-12 bg-[var(--color-brand-copper)]" aria-hidden="true"></div>
+          <p class="text-lg font-bold text-[var(--color-text-primary)]">
+            Creativity is the goal. Software is the craft.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
+  <BrandWatermark />
+
   <!-- Antiphon Home Page Introduction -->
-  <section class="px-6 py-24">
+  <section class="px-6 pt-20 pb-24">
     <div class="mx-auto max-w-[var(--content-max-width)]">
       <div class="max-w-[var(--reading-max-width)]">
+        <p class="mb-2 text-xs font-semibold tracking-wide text-[var(--color-action-primary)] uppercase">
+          Antiphon
+        </p>
         <h2>Modern European e-invoicing, native to .NET.</h2>
         <p class="mt-4 text-[var(--color-text-secondary)]">
           Antiphon brings European e-invoicing standards directly into the .NET ecosystem,
@@ -69,7 +78,7 @@ import logo from "../assets/images/logo/clockwork-otter-logo-vertical-white.svg"
           Your code. Your infrastructure. No sidecars required.
         </p>
         <div class="mt-6">
-          <Button href="/antiphon" variant="primary">Explore Antiphon</Button>
+          <Button href="/antiphon/" variant="primary">Explore Antiphon</Button>
         </div>
       </div>
     </div>

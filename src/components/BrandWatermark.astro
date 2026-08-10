@@ -1,0 +1,66 @@
+---
+import mark from "../assets/images/logo/clockwork-otter-logo-mark-black.svg";
+
+// `mask-image: url(var(--x))` (a var() nested inside url()) silently
+// empties the entire scoped rule under this project's Astro/Tailwind
+// Vite CSS pipeline — reproduced in isolation, not just here. Wrapping
+// url() into the custom property itself and referencing it bare
+// (`mask-image: var(--maskUrl)`) avoids the bug entirely.
+const maskUrl = `url(${mark.src})`;
+---
+
+<div class="watermark-clip" aria-hidden="true">
+  <div class="watermark"></div>
+</div>
+
+<style define:vars={{ maskUrl }}>
+  /*
+   * Thin, zero-height positioning wrapper — its own box collapses to
+   * nothing, so `top: 0` on the mark below lands exactly on this
+   * element's position in normal flow (the boundary between the two
+   * sections it sits between), regardless of either section's actual
+   * height. overflow-x only: the mark must still be free to overflow
+   * vertically past this 0px-tall box, only horizontal page scroll is
+   * the thing being prevented.
+   */
+  .watermark-clip {
+    position: relative;
+    overflow-x: clip;
+  }
+
+  .watermark {
+    /* Neither light section sets its own background-color, so DOM
+       order alone doesn't guarantee this sits behind both — it visually
+       overlaps the *end* of the section before it in the markup as well
+       as the section after, and paints in front of whichever one comes
+       earlier in DOM without an explicit z-index. -1 forces it behind
+       all normal-flow content in the surrounding stacking context. */
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: -180px;
+    width: 600px;
+    height: 600px;
+    transform: translateY(-50%);
+    background-color: var(--color-brand-copper);
+    opacity: 0.04;
+    mask-image: var(--maskUrl);
+    -webkit-mask-image: var(--maskUrl);
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
+    pointer-events: none;
+  }
+
+  /* Below the md breakpoint (768px, matching --breakpoint-md), hide
+     entirely rather than reduce — a scaled-down 600px mark still risks
+     crowding copy on narrow viewports. */
+  @media (max-width: 767px) {
+    .watermark {
+      display: none;
+    }
+  }
+</style>
