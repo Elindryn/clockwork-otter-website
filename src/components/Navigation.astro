@@ -20,18 +20,39 @@ const isActive = (href: string) =>
 ---
 
 <header
-  class="border-b-[length:var(--border-width-medium)] border-b-[var(--navigation-divider)]"
+  class="relative border-b-[length:var(--border-width-medium)] border-b-[var(--navigation-divider)]"
   style={`background-color: var(--navigation-background); height: var(--navigation-height);`}
 >
   <nav
-    class="mx-auto flex h-full max-w-[var(--content-max-width)] items-center justify-between px-6"
+    class="mx-auto flex h-full max-w-[var(--content-max-width)] items-center justify-between px-4 md:px-6"
     aria-label="Primary"
   >
-    <a href="/" class="flex items-center" aria-label="Clockwork Otter Foundry — home">
-      <Image src={logo} alt="Clockwork Otter Foundry" width={217} height={50} />
+    <a href="/" class="flex min-w-0 shrink items-center" aria-label="Clockwork Otter Foundry — home">
+      <Image
+        src={logo}
+        alt="Clockwork Otter Foundry"
+        width={260}
+        height={60}
+        class="h-auto w-[260px] max-w-full md:w-[217px]"
+      />
     </a>
 
-    <ul class="flex items-center gap-8">
+    <button
+      type="button"
+      id="nav-toggle"
+      class="nav-toggle inline-flex h-11 w-11 shrink-0 items-center justify-center md:hidden"
+      aria-expanded="false"
+      aria-controls="nav-menu"
+      aria-label="Open menu"
+    >
+      <span class="nav-toggle-icon" aria-hidden="true"></span>
+    </button>
+
+    <ul
+      id="nav-menu"
+      class="nav-menu absolute inset-x-0 top-full hidden border-b-[length:var(--border-width-medium)] border-b-[var(--navigation-divider)] px-4 pb-4 md:static md:flex md:items-center md:gap-8 md:border-b-0 md:px-0 md:pb-0"
+      style={`background-color: var(--navigation-background);`}
+    >
       {
         links.map((link) => {
           const active = isActive(link.href);
@@ -40,7 +61,7 @@ const isActive = (href: string) =>
               <a
                 href={link.href}
                 aria-current={active ? "page" : undefined}
-                class="relative inline-flex h-[var(--navigation-height)] items-center font-body text-sm font-medium text-[var(--navigation-text)] transition-colors duration-[var(--transition-fast)] hover:text-[var(--navigation-hover)]"
+                class="nav-link relative inline-flex h-[var(--navigation-height)] items-center px-2 font-body text-sm font-medium text-[var(--navigation-text)] transition-colors duration-[var(--transition-fast)] hover:text-[var(--navigation-hover)] md:h-[var(--navigation-height)]"
               >
                 {link.label}
                 {active && (
@@ -57,3 +78,119 @@ const isActive = (href: string) =>
     </ul>
   </nav>
 </header>
+
+<style>
+  /*
+   * The global :focus-visible default (--color-action-primary, Copper)
+   * measures only 2.83:1 against Foundry Charcoal — below the 3:1
+   * non-text minimum (Phase 7 finding). Both the toggle and the links it
+   * reveals sit on Charcoal, so they need the same Charcoal-safe color
+   * already derived for --navigation-hover (5.27:1 against Charcoal).
+   */
+  .nav-toggle:focus-visible,
+  .nav-link:focus-visible {
+    outline: var(--border-width-medium) solid var(--navigation-hover);
+    outline-offset: 2px;
+  }
+
+  .nav-toggle-icon,
+  .nav-toggle-icon::before,
+  .nav-toggle-icon::after {
+    display: block;
+    width: 20px;
+    height: var(--border-width-medium);
+    background-color: var(--navigation-text);
+  }
+
+  .nav-toggle-icon {
+    position: relative;
+  }
+
+  .nav-toggle-icon::before,
+  .nav-toggle-icon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+  }
+
+  .nav-toggle-icon::before {
+    top: -6px;
+  }
+
+  .nav-toggle-icon::after {
+    top: 6px;
+  }
+
+  /* Open state, driven entirely by the aria-expanded attribute the
+     script below sets — no separate "is open" class needed. Instant,
+     no transition/animation: this project already leans away from
+     motion (CLAUDE.md's Aesthetic principles), and a hamburger↔X swap
+     isn't the kind of thing prefers-reduced-motion is about, but instant
+     sidesteps the question rather than requiring a judgment call here. */
+  .nav-toggle[aria-expanded="true"] .nav-toggle-icon {
+    background-color: transparent;
+  }
+
+  .nav-toggle[aria-expanded="true"] .nav-toggle-icon::before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded="true"] .nav-toggle-icon::after {
+    top: 0;
+    transform: rotate(-45deg);
+  }
+
+  /*
+   * Scoped to below md deliberately, not just via a plain .is-open rule:
+   * `.nav-menu.is-open` (two classes) has higher specificity than the
+   * Tailwind `md:flex`/`md:items-center` utilities (one class each), so
+   * without this media guard, resizing/rotating from an open mobile menu
+   * up past the md breakpoint would leave the menu stuck in a single
+   * column instead of picking up the desktop row layout (Phase 7 Codex
+   * review finding) — the media query removes the rule entirely at md+,
+   * sidestepping the specificity mismatch rather than fighting it.
+   */
+  @media (max-width: 767px) {
+    .nav-menu.is-open {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  /*
+   * Progressive enhancement: without this, a visitor with JS disabled or
+   * blocked would see a hamburger button that does nothing and a menu
+   * hidden by the "hidden" utility class forever — the entire nav
+   * unreachable on mobile (Phase 7 Codex review finding). <noscript>
+   * content/styles only apply when scripting is off, so this has zero
+   * effect (and zero flash) when JS runs normally.
+   */
+</style>
+
+<noscript>
+  <style>
+    #nav-menu {
+      display: flex !important;
+      flex-direction: column;
+      position: static;
+    }
+
+    #nav-toggle {
+      display: none;
+    }
+  </style>
+</noscript>
+
+<script>
+  const toggle = document.getElementById("nav-toggle");
+  const menu = document.getElementById("nav-menu");
+
+  toggle?.addEventListener("click", () => {
+    const expanded = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!expanded));
+    toggle.setAttribute("aria-label", expanded ? "Open menu" : "Close menu");
+    menu?.classList.toggle("is-open", !expanded);
+    menu?.classList.toggle("hidden", expanded);
+  });
+</script>
