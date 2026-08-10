@@ -10,8 +10,7 @@ const { currentPath } = Astro.props;
 
 const links = [
   { href: "/", label: "Home" },
-  { href: "/products/antiphon", label: "Antiphon" },
-  { href: "/documentation", label: "Documentation" },
+  { href: "/antiphon", label: "Antiphon" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -21,7 +20,7 @@ const isActive = (href: string) =>
 ---
 
 <header
-  class="border-b-[var(--border-width-medium)] border-b-[var(--navigation-divider)]"
+  class="border-b-[length:var(--border-width-medium)] border-b-[var(--navigation-divider)]"
   style={`background-color: var(--navigation-background); height: var(--navigation-height);`}
 >
   <nav

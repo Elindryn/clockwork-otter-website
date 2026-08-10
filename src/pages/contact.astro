@@ -2,8 +2,22 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Contact">
+<BaseLayout
+  title="Contact"
+  description="Contact Clockwork Otter Foundry about Antiphon, our work, or the things we're building."
+>
   <div class="mx-auto max-w-[var(--content-max-width)] px-6 py-24">
-    <h1>Contact — placeholder</h1>
+    <div class="max-w-[var(--reading-max-width)]">
+      <h1>Get in Touch</h1>
+      <p class="mt-6 text-[var(--color-text-secondary)]">
+        Have a question about Antiphon, Clockwork Otter Foundry, or something we're building?
+        We'd be glad to hear from you.
+      </p>
+      <p class="mt-6">
+        <a href="mailto:info@clockworkotterfoundry.com" class="font-medium">
+          info@clockworkotterfoundry.com
+        </a>
+      </p>
+    </div>
   </div>
 </BaseLayout>

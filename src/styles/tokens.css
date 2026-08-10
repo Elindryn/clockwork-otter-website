@@ -45,7 +45,7 @@
   --color-text-disabled: #777777; /* Provisional per 04-color-system.md */
 
   /* ---- Color: actions (semantic, derived from raw brand colors) ---- */
-  --color-action-primary: var(--color-brand-steel);
+  --color-action-primary: color-mix(in srgb, var(--color-brand-copper) 85%, black);
   --color-action-secondary: var(--color-brand-copper);
 
   /* ---- Typography: font families ---- */
@@ -181,8 +181,27 @@
   --button-radius: var(--radius-medium);
   --button-primary-background: var(--color-action-primary);
   --button-primary-background-hover: color-mix(in srgb, var(--color-action-primary) 85%, black);
+  --button-primary-background-active: color-mix(in srgb, var(--button-primary-background-hover) 85%, black);
   --button-primary-text: var(--color-surface);
   --button-secondary-border: var(--color-action-secondary);
   --button-secondary-text: var(--color-action-secondary);
   --button-secondary-background-hover: color-mix(in srgb, var(--color-action-secondary) 12%, transparent);
+
+  /* ---- Component tokens: Focus ----
+   * Steel Blue (--color-focus-default) is the site-wide default focus
+   * indicator, per 06-design-tokens.md. It fails 3:1 against the new
+   * copper primary-button fill (1.08:1), so primary buttons use a
+   * two-tone halo instead: a white inner ring against the button itself
+   * (5.01:1 against the copper fill) and an outer ring that adapts to
+   * the section background the button sits in. Charcoal (the doc's
+   * outer-ring color) only clears 3:1 against light sections (13.2:1 vs
+   * Foundry Paper) — against the Charcoal hero section it sits on it's
+   * ~1:1, invisible. --color-focus-ring-outer therefore defaults to
+   * Charcoal for buttons on light sections; dark sections (the hero)
+   * override it to white in their own inline style, where it measures
+   * 14.15:1 against Charcoal. See Button.astro and index.astro.
+   */
+  --color-focus-default: var(--color-brand-steel);
+  --color-focus-ring-inner: #ffffff;
+  --color-focus-ring-outer: var(--color-brand-charcoal);
 }

@@ -2,8 +2,31 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="About">
+<BaseLayout
+  title="About"
+  description="The story and philosophy behind Clockwork Otter Foundry: focused software engineering in service of useful tools and creative work."
+>
   <div class="mx-auto max-w-[var(--content-max-width)] px-6 py-24">
-    <h1>About — placeholder</h1>
+    <div class="max-w-[var(--reading-max-width)]">
+      <h1>About the Foundry</h1>
+      <p class="mt-6 text-[var(--color-text-secondary)]">
+        After 25 years as a software engineer, I started Clockwork Otter Foundry to build the
+        kinds of tools I've always valued: focused, thoughtfully engineered software that helps
+        people solve difficult problems.
+      </p>
+      <p class="mt-4 text-[var(--color-text-secondary)]">
+        But the Foundry is about more than solving technical problems. I want to build tools that
+        give people more room to create, whether they're telling stories, making art, or pursuing
+        ideas that deserve the chance to become something real.
+      </p>
+      <p class="mt-4 text-[var(--color-text-secondary)]">
+        Technology shouldn't define the creative process. At its best, it should quietly handle
+        the complexity, remove obstacles, and give people more freedom to make what they imagined.
+      </p>
+      <p class="mt-4 font-semibold text-[var(--color-text-primary)]">
+        Creativity is the goal. Software is the craft.
+      </p>
+      <p class="mt-4 text-[var(--color-text-secondary)]">— Rob G.</p>
+    </div>
   </div>
 </BaseLayout>
