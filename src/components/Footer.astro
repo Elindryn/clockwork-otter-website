@@ -19,13 +19,13 @@ const links = [
       &copy; {year} Clockwork Otter Foundry. All rights reserved.
     </p>
 
-    <ul class="flex flex-wrap gap-x-6 gap-y-2">
+    <ul class="flex flex-wrap gap-x-6 gap-y-3">
       {
         links.map((link) => (
           <li>
             <a
               href={link.href}
-              class="font-body text-sm text-[var(--footer-text)] transition-colors duration-[var(--transition-fast)] hover:text-[var(--navigation-hover)]"
+              class="footer-link inline-flex items-center px-2 py-3 font-body text-sm text-[var(--footer-text)] transition-colors duration-[var(--transition-fast)] hover:text-[var(--navigation-hover)]"
             >
               {link.label}
             </a>
@@ -35,3 +35,15 @@ const links = [
     </ul>
   </div>
 </footer>
+
+<style>
+  /*
+   * Same Charcoal-focus gap as Navigation.astro's links — the global
+   * default focus outline (Copper) only measures 2.83:1 against the
+   * footer's Charcoal background, below the 3:1 non-text minimum.
+   */
+  .footer-link:focus-visible {
+    outline: var(--border-width-medium) solid var(--navigation-hover);
+    outline-offset: 2px;
+  }
+</style>

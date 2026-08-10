@@ -160,7 +160,17 @@
   --navigation-height: var(--header-height);
   --navigation-background: var(--color-brand-charcoal);
   --navigation-text: var(--color-background);
-  --navigation-hover: var(--color-brand-steel);
+  /*
+   * Steel Blue at full strength (--color-brand-steel) measures only
+   * 2.62:1 against Foundry Charcoal, below the 4.5:1 WCAG AA minimum for
+   * text (Phase 7 finding). Lightened toward white via color-mix() —
+   * the same technique already used for the primary button's derived
+   * shades — to 5.27:1 against Charcoal, comfortably clearing 4.5:1
+   * while still reading recognizably as Steel Blue. Only used against
+   * Foundry Charcoal (nav and footer both sit on it), so that's the
+   * only context that needs to pass.
+   */
+  --navigation-hover: color-mix(in srgb, var(--color-brand-steel) 65%, white);
   --navigation-active-indicator: var(--color-brand-copper);
   --navigation-divider: var(--color-brand-copper);
 
@@ -183,8 +193,22 @@
   --button-primary-background-hover: color-mix(in srgb, var(--color-action-primary) 85%, black);
   --button-primary-background-active: color-mix(in srgb, var(--button-primary-background-hover) 85%, black);
   --button-primary-text: var(--color-surface);
-  --button-secondary-border: var(--color-action-secondary);
-  --button-secondary-text: var(--color-action-secondary);
+  /*
+   * Raw Copper (--color-action-secondary) measures only 3.54:1 against
+   * the page background as text, below the 4.5:1 WCAG AA minimum (Phase
+   * 7 finding). First tried reusing --color-action-primary (the existing
+   * 85%-toward-black mix, 4.67:1 against Foundry Paper) but that only
+   * passes against a plain background — once the secondary button's own
+   * --button-secondary-background-hover tint (below) lightens the
+   * background slightly, it drops to 4.09:1, failing on hover. Derived a
+   * separate, darker shade instead (75% toward black) that clears 4.5:1
+   * in both the resting (5.69:1) and hovered (4.99:1) states, with the
+   * side benefit of keeping secondary's copper visibly darker/more
+   * saturated than primary's fill — reads as clearly distinct, not just
+   * via the solid-vs-outline treatment.
+   */
+  --button-secondary-border: color-mix(in srgb, var(--color-brand-copper) 75%, black);
+  --button-secondary-text: color-mix(in srgb, var(--color-brand-copper) 75%, black);
   --button-secondary-background-hover: color-mix(in srgb, var(--color-action-secondary) 12%, transparent);
 
   /* ---- Component tokens: Focus ----
