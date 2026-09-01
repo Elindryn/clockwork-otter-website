@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
 ---
 
 <BaseLayout
@@ -27,7 +28,24 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <p class="mt-4 font-semibold text-[var(--color-text-primary)]">
           Your code. Your infrastructure. No sidecars required.
         </p>
-        <p class="mt-8 text-[var(--color-text-secondary)]">Additional details and documentation coming soon.</p>
+        <p class="mt-8 text-[var(--color-text-secondary)]">
+          The free browser-based validator is available now. It checks XRechnung, Peppol
+          BIS Billing 3.0, Factur-X, and EN 16931 invoice XML against their Schematron
+          business rules, entirely in your browser — nothing you paste ever leaves the page.
+        </p>
+        <div class="mt-6">
+          <Button
+            href="https://validator.clockworkotterfoundry.com"
+            variant="primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Try the free validator
+          </Button>
+        </div>
+        <p class="mt-8 text-[var(--color-text-secondary)]">
+          Full SDK details and documentation are still coming soon.
+        </p>
       </div>
     </div>
   </article>
