@@ -43,9 +43,45 @@ import Button from "../components/Button.astro";
             Try the free validator
           </Button>
         </div>
-        <p class="mt-8 text-[var(--color-text-secondary)]">
-          Full SDK details and documentation are still coming soon.
+        <h2 class="mt-12">The SDK is Available Now</h2>
+        <p class="mt-4 text-[var(--color-text-secondary)]">
+          Antiphon.Invoicing is published on NuGet, covering EN 16931 core, Peppol BIS Billing 3.0
+          (UBL and CII), XRechnung (UBL and CII), and Factur-X PDF generation — compiled directly
+          from the standards bodies' own Schematron rule sets, not reimplemented from scratch.
+          Evaluation mode is free and fully functional today, with nothing disabled.
         </p>
+        <div class="mt-6 flex flex-wrap gap-4">
+          <Button
+            href="https://www.nuget.org/packages/Antiphon.Invoicing"
+            variant="primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Get the package on NuGet
+          </Button>
+          <Button
+            href="https://github.com/ClockworkOtterFoundry/antiphon-examples/blob/main/docs/Antiphon-How-It-Works.md"
+            variant="secondary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            How it works
+          </Button>
+        </div>
+        <p class="mt-8 text-[var(--color-text-secondary)]">
+          Commercial licensing isn't purchasable yet — the EULA is still working its way through
+          review — but early inquiries are welcome and get priority consideration once it opens.
+        </p>
+        <div class="mt-6">
+          <Button
+            href="https://validator.clockworkotterfoundry.com/#lead"
+            variant="secondary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ask about commercial licensing
+          </Button>
+        </div>
       </div>
     </div>
   </article>
