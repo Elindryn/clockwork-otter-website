@@ -11,12 +11,16 @@ const { currentPath } = Astro.props;
 const links = [
   { href: "/", label: "Home" },
   { href: "/antiphon/", label: "Antiphon" },
+  // Copper Leaf Editions lives at /copper-leaf/ but belongs to the Creative section.
+  { href: "/creative/", label: "Creative", also: ["/copper-leaf/"] },
   { href: "/about/", label: "About" },
   { href: "/contact/", label: "Contact" },
 ];
 
-const isActive = (href: string) =>
-  href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+const isActive = ({ href, also = [] }: { href: string; also?: string[] }) =>
+  href === "/"
+    ? currentPath === "/"
+    : [href, ...also].some((prefix) => currentPath.startsWith(prefix));
 ---
 
 <header
@@ -55,7 +59,7 @@ const isActive = (href: string) =>
     >
       {
         links.map((link) => {
-          const active = isActive(link.href);
+          const active = isActive(link);
           return (
             <li>
               <a

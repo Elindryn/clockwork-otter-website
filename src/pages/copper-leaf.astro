@@ -1,0 +1,271 @@
+---
+import { Image, getImage } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import { resolveBooks } from "../data/copper-leaf-books";
+
+const books = await Promise.all(
+  resolveBooks().map(async (book) => ({
+    ...book,
+    // Full-size version shown in each spread's CSS-only preview overlay, so
+    // the editorial text is readable without any client-side script.
+    coverLink: book.coverImage
+      ? (await getImage({ src: book.coverImage.src, width: book.coverImage.src.width, format: "webp" })).src
+      : null,
+    spreadLinks: await Promise.all(
+      book.spreadImages.map(async (s) => (await getImage({ src: s.src, width: 2550, format: "webp" })).src),
+    ),
+  })),
+);
+---
+
+<BaseLayout
+  title="Copper Leaf Editions"
+  description="Copper Leaf Editions is a line of coloring books for adults from Clockwork Otter Foundry, pairing detailed illustrations with short readings."
+>
+  <article class="px-6 py-24">
+    <div class="mx-auto max-w-[var(--content-max-width)]">
+      <div class="max-w-[var(--reading-max-width)]">
+        <p class="mb-2 text-xs font-semibold tracking-wide text-[var(--color-action-primary)] uppercase">
+          Creative · Copper Leaf Editions
+        </p>
+        <h1>Copper Leaf Editions™</h1>
+        <p class="mt-4 text-lg font-semibold text-[var(--color-text-primary)]">
+          Coloring books for curious minds.
+        </p>
+        <p class="mt-2 text-[var(--color-text-secondary)]">
+          Explore remarkable places, enduring traditions, and imaginative worlds—one page at a
+          time.
+        </p>
+        <p class="mt-4 text-[var(--color-text-secondary)]">
+          Copper Leaf Editions is a line of coloring books for adults from Clockwork Otter
+          Foundry, pairing detailed illustrations with short readings that add context,
+          atmosphere, and discovery. Each collection invites you to slow down, follow your
+          curiosity, and make the artwork your own.
+        </p>
+      </div>
+
+      <div class="mt-16 flex flex-col gap-24">
+        {
+          books.map((book, i) => (
+            <section
+              aria-labelledby={`${book.slug}-title`}
+              class:list={[i > 0 && "book-divider pt-24"]}
+            >
+              {book.isPlaceholder ? (
+                <>
+                  <h2 id={`${book.slug}-title`} class="sr-only">
+                    Book {i + 1}
+                  </h2>
+                  <div class="flex aspect-[2550/1649] w-full items-center justify-center rounded-[var(--radius-card)] border-[length:var(--border-width-thin)] border-[color-mix(in_srgb,var(--color-text-secondary)_40%,transparent)] p-6 text-center text-[var(--color-text-secondary)]">
+                    Book details to be added
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div class="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] md:gap-12">
+                    <div>
+                      <a
+                        href={`#preview-${book.slug}-cover`}
+                        class="block max-w-xs rounded-[var(--radius-card)] md:max-w-none"
+                        aria-label={`Open a large preview of the ${book.title} cover`}
+                      >
+                        <Image
+                          src={book.coverImage!.src}
+                          alt={book.coverImage!.alt}
+                          width={640}
+                          format="webp"
+                          loading={i === 0 ? "eager" : "lazy"}
+                          class="h-auto w-full rounded-[var(--radius-card)]"
+                        />
+                      </a>
+                      <div
+                        id={`preview-${book.slug}-cover`}
+                        class="spread-preview"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label={`Cover of ${book.title}`}
+                      >
+                        <a
+                          href={`#${book.slug}-title`}
+                          class="spread-preview-backdrop"
+                          aria-label="Close preview"
+                          tabindex="-1"
+                        />
+                        <div class="spread-preview-body spread-preview-body--cover">
+                          <a href={`#${book.slug}-title`} class="spread-preview-close">
+                            Close
+                          </a>
+                          <img
+                            src={book.coverLink!}
+                            alt={book.coverImage!.alt}
+                            loading="lazy"
+                            decoding="async"
+                            class="mx-auto block h-auto w-auto max-w-full bg-[var(--color-surface)]"
+                            style="max-height: calc(100vh - 5rem);"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="max-w-[var(--reading-max-width)]">
+                      <h2 id={`${book.slug}-title`}>{book.title}</h2>
+                      {book.description.map((p) => (
+                        <p class="mt-4 text-[var(--color-text-secondary)]">{p}</p>
+                      ))}
+                      <p class="mt-4 text-sm text-[var(--color-text-secondary)]">{book.details}</p>
+                      <div class="mt-6">
+                        {book.amazonUrl ? (
+                          <Button
+                            href={book.amazonUrl}
+                            variant="primary"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            View on Amazon
+                            <span class="sr-only">: {book.title} (opens in a new tab)</span>
+                          </Button>
+                        ) : (
+                          <p class="text-sm font-semibold tracking-wide text-[var(--color-text-secondary)] uppercase">
+                            Coming soon
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <h3 class="mt-12">A look inside</h3>
+                  <p class="mt-2 max-w-[var(--reading-max-width)] text-[var(--color-text-secondary)]">
+                    Preview two sample spreads featuring the artwork and accompanying readings.
+                    Select either image for a closer look.
+                  </p>
+                  <ul class="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
+                    {book.spreadImages.map((spread, j) => (
+                      <li>
+                        <a
+                          href={`#preview-${book.slug}-${j + 1}`}
+                          class="block rounded-[var(--radius-card)]"
+                          aria-label={`Open a large preview of sample spread ${j + 1} from ${book.title}`}
+                        >
+                          <Image
+                            src={spread.src}
+                            alt={spread.alt}
+                            width={1200}
+                            format="webp"
+                            loading="lazy"
+                            class="h-auto w-full rounded-[var(--radius-card)] border-[length:var(--border-width-thin)] border-[color-mix(in_srgb,var(--color-text-secondary)_30%,transparent)]"
+                          />
+                        </a>
+                        <div
+                          id={`preview-${book.slug}-${j + 1}`}
+                          class="spread-preview"
+                          role="dialog"
+                          aria-modal="true"
+                          aria-label={`Sample spread ${j + 1} from ${book.title}`}
+                        >
+                          <a
+                            href={`#${book.slug}-title`}
+                            class="spread-preview-backdrop"
+                            aria-label="Close preview"
+                            tabindex="-1"
+                          />
+                          <div class="spread-preview-body">
+                            <a href={`#${book.slug}-title`} class="spread-preview-close">
+                              Close
+                            </a>
+                            <img
+                              src={book.spreadLinks[j]}
+                              alt={spread.alt}
+                              loading="lazy"
+                              decoding="async"
+                              class="block h-auto w-full bg-[var(--color-surface)]"
+                            />
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </section>
+          ))
+        }
+      </div>
+
+      <div class="mt-24 max-w-[var(--reading-max-width)] border-t-[length:var(--border-width-thin)] border-t-[color-mix(in_srgb,var(--color-text-secondary)_30%,transparent)] pt-12">
+        <h2>A little discovery. A little imagination. Your own touch of color.</h2>
+        <p class="mt-4 text-[var(--color-text-secondary)]">
+          From the natural world to the mysterious and macabre, Copper Leaf Editions offers
+          collections to explore at your own pace.
+        </p>
+        <p class="mt-4 text-[var(--color-text-secondary)]">
+          Copper Leaf Editions is a line of coloring books from
+          <a href="/" class="underline">Clockwork Otter Foundry</a>.
+        </p>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  /* Warm-gray rule between titles: neutral text token warmed with a little brand copper. */
+  .book-divider {
+    border-top: var(--border-width-thin) solid
+      color-mix(
+        in srgb,
+        color-mix(in srgb, var(--color-text-secondary) 70%, var(--color-brand-copper)) 45%,
+        transparent
+      );
+  }
+
+  /*
+   * CSS-only preview: the overlay is shown while its id is the URL fragment
+   * (:target), so no client-side script is needed. The browser's Back button
+   * closes it, as do the Close link and the backdrop.
+   */
+  .spread-preview {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    overflow: auto;
+    padding: 1rem;
+    background: rgb(0 0 0 / 0.85);
+  }
+
+  .spread-preview:target {
+    display: block;
+  }
+
+  .spread-preview-backdrop {
+    position: fixed;
+    inset: 0;
+  }
+
+  .spread-preview-body {
+    position: relative;
+    width: min(100%, 2550px);
+    /* Keep the editorial text legible on narrow screens: scroll sideways instead of shrinking. */
+    min-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Portrait covers fit the window height instead of the spread's full width. */
+  .spread-preview-body--cover {
+    width: auto;
+    min-width: 0;
+  }
+
+  .spread-preview-close {
+    position: sticky;
+    top: 0;
+    float: right;
+    z-index: 1;
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--button-radius);
+    background: var(--color-surface);
+    color: var(--color-text-primary);
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+</style>
