@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CreativeCard from "../../components/CreativeCard.astro";
+---
+
+<BaseLayout
+  title="Creative"
+  description="Creative work from Clockwork Otter Foundry, including the Copper Leaf Editions line of coloring books."
+>
+  <article class="px-6 py-24">
+    <div class="mx-auto max-w-[var(--content-max-width)]">
+      <div class="max-w-[var(--reading-max-width)]">
+        <p class="mb-2 text-xs font-semibold tracking-wide text-[var(--color-action-primary)] uppercase">
+          Creative
+        </p>
+        <h1>Creative</h1>
+        <p class="mt-4 text-[var(--color-text-secondary)]">
+          Alongside our software, Clockwork Otter Foundry makes creative work. Here is what is
+          available now and what is on the way.
+        </p>
+      </div>
+      <ul class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <CreativeCard
+          title="Copper Leaf Editions"
+          description="A line of coloring books from Clockwork Otter Foundry."
+          href="/copper-leaf/"
+          linkLabel="See the books"
+        />
+        <CreativeCard
+          title="Bardsong"
+          badge="Coming soon"
+          description="Advanced TTRPG Character Builder"
+        />
+      </ul>
+    </div>
+  </article>
+</BaseLayout>

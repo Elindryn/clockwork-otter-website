@@ -1,0 +1,43 @@
+---
+import Button from "./Button.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  /** Omit for a non-interactive "coming soon" card. */
+  href?: string;
+  linkLabel?: string;
+  badge?: string;
+}
+
+const { title, description, href, linkLabel, badge } = Astro.props;
+const quiet = !href;
+---
+
+<li
+  class:list={[
+    "flex flex-col gap-3 rounded-[var(--radius-card)] p-6",
+    quiet
+      ? "border-[length:var(--border-width-thin)] border-[color-mix(in_srgb,var(--color-text-secondary)_40%,transparent)] bg-transparent"
+      : "bg-[var(--color-surface)] shadow-[var(--shadow-card,0_1px_3px_rgb(0_0_0/0.12))]",
+  ]}
+>
+  {
+    badge && (
+      <p class="text-xs font-semibold tracking-wide text-[var(--color-text-secondary)] uppercase">
+        {badge}
+      </p>
+    )
+  }
+  <h2 class="text-[var(--color-text-primary)]">{title}</h2>
+  <p class="text-[var(--color-text-secondary)]">{description}</p>
+  {
+    href && (
+      <div class="mt-3">
+        <Button href={href} variant="primary">
+          {linkLabel ?? title}
+        </Button>
+      </div>
+    )
+  }
+</li>
