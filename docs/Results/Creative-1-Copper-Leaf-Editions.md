@@ -1,48 +1,64 @@
 # Creative-1 — Copper Leaf Editions: Completion Report
 
 **Date:** 2026-10-08
+**Status:** merged (PR #9) and live at `clockworkotterfoundry.com`. Follow-up PR #10 (closing-line spacing fix) open, held by owner until a separate page goes live.
 
 ## 1. Summary
-Added a flat **Creative** nav/footer link, `/creative/` (Copper Leaf Editions linked, Bardsong a non-interactive "Coming soon" card), and `/copper-leaf/` rendering three books from `src/data/copper-leaf-books.ts`. No client JS, no new dependencies, no tokens changed.
+Added a flat **Creative** nav/footer link, a `/creative/` index, and the Copper Leaf Editions page. The prompt was written for one spread per book with placeholder entries; the owner then supplied real books and a revised page design, so the shipped result differs from the prompt in the ways listed in §6.
+
+- `/creative/` — Copper Leaf Editions (linked, first) and Bardsong (non-interactive "Coming soon" card, "Advanced TTRPG Character Builder", owner-supplied wording).
+- `/copper-leaf/` — **top-level URL by owner request** (not `/creative/copper-leaf-editions/`). Intro, three stacked books, closing section.
+- Each book: cover, exact printed title, owner-supplied description, details line ("Coloring book for adults · 30 illustrations · 8.5 × 11 inches", confirmed by owner), "A look inside" with two sample spreads, and a plain "Coming soon" label until `amazonUrl` is set (then a "View on Amazon" button).
+- Covers and spreads open in a large **CSS-only** (`:target`) preview overlay — no client-side JavaScript added.
+- Thin warm-gray divider above each book after the first.
+- No new dependencies; tokens, Antiphon and legal pages untouched.
 
 ## 2. Real vs placeholder books
-**All three are placeholders.** The owner had not supplied titles, factual lines, Amazon URLs or spread images (`src/assets/images/copper-leaf/` did not exist; no notes in `docs/`). Each renders a "Book details to be added" frame, no Amazon link, and the build logs a `[copper-leaf]` warning listing them. To go live: place image, fill the entry, remove `placeholder: true`.
+All three are **real**; placeholder mode remains in code as a safeguard (also logs a build-time warning).
+
+| Slot | Title (exact printed) | Files in `src/assets/images/copper-leaf/` | Amazon URL |
+|---|---|---|---|
+| CL-001 | Great National Parks of America | `CL-001-Cover.png`, `CL-001-Spread1.png`, `CL-001-Spread2.png` | **pending** (`null`) |
+| CL-002 | The Haunted Atlas | `CL-002-Cover.png`, `CL-002-Spread1.png`, `CL-002-Spread2.png` | **pending** (`null`) |
+| CL-006 | Halloween & Spirit Traditions Around the World | `CL-006-Cover.png`, `CL-006-Spread1.png`, `CL-006-Spread2.png` | **pending** (`null`) |
+
+All six spreads were inspected: no PROOF/UNVERIFIED marks. Covers have a coloured frame (part of the cover files). Source folder was moved out of the repo to `../copper-leaf-source`.
 
 ## 3. Files changed
-Added: `src/data/copper-leaf-books.ts`, `src/components/CreativeCard.astro`, `src/pages/creative/index.astro`, `src/pages/creative/copper-leaf-editions.astro`, `src/assets/images/copper-leaf/.gitkeep`, this report.
-Updated: `Navigation.astro`, `Footer.astro`, `CLAUDE.md`, `docs/Prompts/PROMPT_LOG.md`.
+Added: `src/data/copper-leaf-books.ts`, `src/components/CreativeCard.astro`, `src/pages/creative/index.astro`, `src/pages/copper-leaf.astro`, nine images in `src/assets/images/copper-leaf/`, `docs/Prompts/Creative-1-Copper-Leaf-Editions.md`, this report.
+Updated: `src/components/Navigation.astro` (Creative link; `also` prefix list so the link stays active on `/copper-leaf/`), `src/components/Footer.astro`, `CLAUDE.md`, `docs/Prompts/PROMPT_LOG.md`.
 
-## 4. Not changed
-Nothing from the allowed list was unnecessary.
+## 4. Files not changed
+Nothing from the allowed list was unnecessary. `astro.config.mjs`, tokens, `package.json`, workflows untouched.
 
-## 5. Documentation
-`CLAUDE.md` Standing Decisions: new "Creative section" entry. `PROMPT_LOG.md`: Creative-1 row (status `executed`).
+## 5. Documentation changes
+`CLAUDE.md` Standing Decisions: new "Creative section" entry (flat nav, `/copper-leaf/` URL, data-file convention, image location, CSS-only previews, "Coming soon" rule, copy rules). `PROMPT_LOG.md`: Creative-1 row, status `executed`.
 
-## 6. Design-system conformance
-Existing tokens only. The "quiet" Bardsong card uses `--color-text-secondary` (#555 on #f7f7f5) text with a thin 40% mix border and no hover/focus affordance. The framed-card border uses `color-mix` of an existing token because no border-colour token exists. The copy intro on the Copper Leaf page deliberately omits the "facing notes" claim (not confirmed for the three books). Bardsong wording confirmed by owner: "Advanced TTRPG Character Builder" with a "Coming soon" badge.
+## 6. Design-system conformance and deviations from the prompt
+- Existing tokens only; the warm-gray divider and quiet-card borders are `color-mix` of existing tokens (no border-colour token exists). Site background stays `--color-background` (owner's "warm ivory" suggestion not adopted — would need a token change).
+- **Owner overrides of the prompt:** (a) page URL `/copper-leaf/`; (b) two spreads + cover per book instead of one spread; (c) per-book "Coming soon" label (prompt said render nothing); (d) in-page large preview instead of a plain image.
+- **Copy rules kept** (owner confirmed when pasted design copy used "imprint"): no "imprint"/"publisher" wording — replaced with "a line of coloring books from Clockwork Otter Foundry"; nav label stays "Creative", not "Creative Publishing"; silent on how the art is made; no ecommerce elements.
+- Titles use the exact cover titles, not the shortened ones in the owner's pasted copy.
+- "30 illustrations" and "8.5 × 11 inches" are owner-supplied and owner-confirmed.
+- The preview overlay is CSS-only: no focus trap and **Escape does not close it** (Close link, backdrop click and browser Back do). Adding a script for Escape would be a second JS exception to the zero-JS decision; not done, owner not yet asked to decide.
 
 ## 7. Verification
-- `npm run build` (astro check + build): 0 errors / 0 warnings / 0 hints, 9 pages.
-- Nav `aria-current` present on `/creative/` and only on matching paths; sitemap contains `/creative/` and `/copper-leaf/`; Bardsong card has no anchor; one `<script>` per page (existing nav toggle only); grep for AI/generated/handmade/imprint/publisher in both pages: 0 hits.
-- Temporary real-entry test (synthetic 2550×1649 PNG, then reverted): image served as WebP (1200 px wide), Amazon link rendered with `target="_blank" rel="noopener noreferrer"` and accessible name "View on Amazon: <title> (opens in a new tab)", warning listed only the remaining two. Fixtures removed.
-- **Not performed:** live-browser checks at 320/768/1280 px and keyboard tab order (no preview session run); layouts rely on single-column/`md:grid-cols-2` classes and `aspect-ratio` frames. Served size of a *real* spread not measurable (no images).
+- `npm run build` (astro check + build): 0 errors / 0 warnings / 0 hints, 9 pages, on every revision.
+- Built HTML: Creative link `aria-current` on `/creative/` and `/copper-leaf/`; both pages in the sitemap; Bardsong card has no anchor; one `<script>` per page (existing nav toggle); no hits for AI/generated/handmade/imprint/publisher in the page copy.
+- Images served as WebP: spreads ~90–135 kB at 1200 px, full-size preview ~250–390 kB at 2550 px, covers ~115 kB.
+- Temporary real-entry test before real content arrived (synthetic image, Amazon link rendering, placeholder warning) — fixtures removed.
+- **Not performed:** viewport checks (320/768/1280 px) and keyboard tab order — the headless browser is not installed in this environment (`chrome-for-testing` missing) and WSL cannot reach the Windows-side preview. Owner reviewed the live site manually after deploy and reported one defect (see §8).
 
 ## 8. Review outcome
-Codex review **not run** (not attempted; prior phases found it unreliable here). No fix pass.
+Codex review **not run**. Post-deploy owner review found one defect: the closing line rendered "…books fromClockwork Otter Foundry" because Astro trimmed whitespace before the inline link. Fixed with an explicit `{" "}` and verified in built HTML; shipped in **PR #10** (open, awaiting owner merge). No other findings recorded.
 
-## 9. Out-of-scope items
-None found.
+## 9. Out-of-scope items discovered
+- Headless browser not installed here, so automated viewport/keyboard verification is unavailable in this environment.
+- The repo root previously held the owner's source image folder (19 MB, untracked); moved outside the repo to avoid committing it to a public repo.
 
-## 10. Follow-ups
-Owner to supply titles, lines, alt text, Amazon URLs and the three spread PNGs (and visually confirm none show PROOF/UNVERIFIED); do the browser viewport/keyboard pass once content is in.
-
-## Addendum 2026-10-08 — real content and revised page design
-- All three books now real (no placeholders): CL-001 *Great National Parks of America*, CL-002 *The Haunted Atlas*, CL-006 *Halloween & Spirit Traditions Around the World* (exact cover titles, per owner). Each shows cover, description, details line, "A look inside" with two spreads (each links to a 2550 px WebP in a new tab — no JS), and an Amazon button once `amazonUrl` is set (all still `null`; URLs not yet supplied).
-- Owner-supplied copy used verbatim except: "imprint" wording replaced with "a line of coloring books from Clockwork Otter Foundry" (owner chose to keep the earlier no-imprint rule); nav label stays "Creative". Details line (30 illustrations, 8.5 × 11 in) is owner-supplied, not verified by me.
-- All six spreads inspected: no PROOF/UNVERIFIED marks. Covers carry a coloured frame (blue on CL-001) that is part of the cover file.
-- Not implemented: per-book "Coming soon" (conflicts with the original prompt; needs to know which titles are unpublished), ivory background (existing `--color-background` kept), site-wide "Creative Publishing" nav label.
-- Build: 0 errors/0 warnings/0 hints; no placeholder frames in output. Browser viewport/keyboard checks still not run.
-
-- Owner confirmed 2026-10-08: 30 illustrations with editorial notes, 8.5 × 11 in. Books without `amazonUrl` now show a plain "Coming soon" label (Amazon listings pending); it becomes the "View on Amazon" button when the URL is set.
-
-- Owner request 2026-10-08: Copper Leaf page moved to `/copper-leaf/` (`src/pages/copper-leaf.astro`); the Creative nav link stays active on it, and the `/creative/` card links there. No redirect from the old URL (never deployed).
+## 10. Suggested follow-up tasks
+1. Owner to supply the three Amazon URLs (plain `https://www.amazon.com/...`, no tracking) — set `amazonUrl` per book; each "Coming soon" becomes the button.
+2. Merge PR #10.
+3. Decide whether Escape-to-close on the preview is worth a second small JS exception.
+4. Manual viewport (320/768/1280 px) and keyboard pass on `/creative/` and `/copper-leaf/`.
+5. Consider a real "border"/warm-gray token and an ivory background in the brand repo if the owner wants these as system-level choices.
