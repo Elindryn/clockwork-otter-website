@@ -2,7 +2,8 @@
 import { Image, getImage } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/Button.astro";
-import { resolveBooks } from "../data/copper-leaf-books";
+import banner from "../assets/images/copper-leaf/CL-Banner.png";
+import { amazonStoreUrl, resolveBooks } from "../data/copper-leaf-books";
 
 const books = await Promise.all(
   resolveBooks().map(async (book) => ({
@@ -25,12 +26,19 @@ const books = await Promise.all(
 >
   <article class="px-6 py-24">
     <div class="mx-auto max-w-[var(--content-max-width)]">
-      <div class="max-w-[var(--reading-max-width)]">
-        <p class="mb-2 text-xs font-semibold tracking-wide text-[var(--color-action-primary)] uppercase">
-          Creative · Copper Leaf Editions
-        </p>
-        <h1>Copper Leaf Editions™</h1>
-        <p class="mt-4 text-lg font-semibold text-[var(--color-text-primary)]">
+      <Image
+        src={banner}
+        alt="Copper Leaf Editions™, Adult Coloring Experiences — three coloring book covers beside a sketched canyon landscape."
+        widths={[640, 1024, 1600, 2290]}
+        sizes="100vw"
+        format="webp"
+        loading="eager"
+        fetchpriority="high"
+        class="h-auto w-full rounded-[var(--radius-card)]"
+      />
+      <div class="mt-12 max-w-[var(--reading-max-width)]">
+        <h1 class="sr-only">Copper Leaf Editions™</h1>
+        <p class="text-lg font-semibold text-[var(--color-text-primary)]">
           Coloring books for curious minds.
         </p>
         <p class="mt-2 text-[var(--color-text-secondary)]">
@@ -43,6 +51,16 @@ const books = await Promise.all(
           atmosphere, and discovery. Each collection invites you to slow down, follow your
           curiosity, and make the artwork your own.
         </p>
+        {
+          amazonStoreUrl && (
+            <p class="mt-4">
+              <a href={amazonStoreUrl} target="_blank" rel="noopener noreferrer" class="underline">
+                Browse all Copper Leaf Editions books on Amazon
+                <span class="sr-only"> (opens in a new tab)</span>
+              </a>
+            </p>
+          )
+        }
       </div>
 
       <div class="mt-16 flex flex-col gap-24">

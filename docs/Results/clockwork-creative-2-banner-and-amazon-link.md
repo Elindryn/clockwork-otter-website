@@ -1,0 +1,13 @@
+# CLOCKWORK-CREATIVE-2 — Completion Report
+
+1. **Summary.** CL-001 now has a working "View on Amazon" button (`https://www.amazon.com/dp/B0HMKDN634`, plain URL). The owner's banner sits at the top of `/copper-leaf/` as a full-width, non-linked `<Image>` (WebP, srcset 640/1024/1600/2290, `loading="eager"`, `fetchpriority="high"`, width/height 2290×687, existing card radius, specified alt text). Page `<h1>` kept but `sr-only`; the "Creative · Copper Leaf Editions" eyebrow was dropped as redundant directly under the banner wordmark. Tagline and intro unchanged. Added inactive `amazonStoreUrl: string | null = null` and a conditional "Browse all Copper Leaf Editions books on Amazon" link under the intro.
+2. **Pre-flight.** Banner inspected: 2290×687, renders cleanly, no defects. Observations: it shows CL-001, CL-006 and *Memento Mori* (not yet on the site); *The Haunted Atlas* (CL-002) is not pictured. Banner text sits on the page's Creative copy (not a defect, just FYI).
+3. **Files changed.** `src/data/copper-leaf-books.ts`, `src/pages/copper-leaf.astro`, `src/assets/images/copper-leaf/CL-Banner.png` (new, copied; original untouched), `CLAUDE.md`, `docs/Prompts/PROMPT_LOG.md`, this file.
+4. **Not changed.** None of the allowed files were unneeded.
+5. **Docs.** CLAUDE.md Creative section note added; PROMPT_LOG row added.
+6. **Behavior impact.** Page content only; no new JS (the single module script is the existing nav toggle), no new deps/tokens.
+7. **Database.** None.
+8. **Verification.** `npm run build` (astro check 0/0/0 + build, 9 pages) passed. `dist/copper-leaf/index.html`: exactly one Amazon link (`B0HMKDN634`, `target="_blank"`, `rel="noopener noreferrer"`); 2 "Coming soon"; banner `<img>` has alt, width/height, srcset, no extra scripts. Generated banner sizes: 37.7 KB / 95 KB / 216 KB / **388 KB (largest)** vs 3.3 MB source. Store link: with a temporary test value it rendered correctly; with `null` it's absent (0 matches); restored to `null`. Note: `sizes="100vw"` used (`"100%"` is not valid `sizes` syntax). **Not visually checked**: Playwright's Chromium isn't installed in this environment. Estimate at 360 px: the content width is ~312 px, so the wordmark's capitals are ~8 px tall and the "Adult Coloring Experiences" line ~6 px — likely hard to read on phones.
+9. **Review.** Codex review ran: no findings; no fix pass needed.
+10. **Out of scope / flags.** Phone legibility of the wordmark (see 8); banner shows *Memento Mori*, which has no book on the site.
+11. **Follow-ups.** (a) Visual check at 360/1280 px; (b) if too small on phones, supply a taller/cropped mobile banner variant rather than cropping the artwork; (c) supply the Amazon author page URL for `amazonStoreUrl`; (d) add CL-002 Amazon link when listed.

@@ -44,6 +44,13 @@ export interface ResolvedCopperLeafBook extends CopperLeafBook {
   isPlaceholder: boolean;
 }
 
+/**
+ * Amazon author page / brand store for all Copper Leaf Editions books.
+ * Not shown while null; set to a plain https://www.amazon.com/... URL (no
+ * affiliate or tracking parameters) once the owner supplies it.
+ */
+export const amazonStoreUrl: string | null = null;
+
 const DETAILS = "Coloring book for adults · 30 illustrations · 8.5 × 11 inches";
 
 export const books: CopperLeafBook[] = [
@@ -69,7 +76,7 @@ export const books: CopperLeafBook[] = [
         alt: "Book spread. On the left, a page of notes headed “Sandstone Fins and Windows at Dusk in Arches”. On the right, a black-and-white line drawing of sandstone fins and a natural arch framing a desert valley at sunset.",
       },
     ],
-    amazonUrl: null,
+    amazonUrl: "https://www.amazon.com/dp/B0HMKDN634",
   },
   {
     slug: "cl-002",
