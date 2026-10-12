@@ -4,7 +4,7 @@ import Button from "./Button.astro";
 interface Props {
   title: string;
   description: string;
-  /** Omit for a non-interactive "coming soon" card. */
+  /** Omit for a non-interactive "coming soon" row. */
   href?: string;
   linkLabel?: string;
   badge?: string;
@@ -16,24 +16,26 @@ const quiet = !href;
 
 <li
   class:list={[
-    "flex flex-col gap-3 rounded-[var(--radius-card)] p-6",
+    "flex flex-col gap-4 rounded-[var(--radius-card)] p-6 sm:flex-row sm:items-center sm:justify-between sm:gap-8",
     quiet
       ? "border-[length:var(--border-width-thin)] border-[color-mix(in_srgb,var(--color-text-secondary)_40%,transparent)] bg-transparent"
       : "bg-[var(--color-surface)] shadow-[var(--shadow-card,0_1px_3px_rgb(0_0_0/0.12))]",
   ]}
 >
-  {
-    badge && (
-      <p class="text-xs font-semibold tracking-wide text-[var(--color-text-secondary)] uppercase">
-        {badge}
-      </p>
-    )
-  }
-  <h2 class="text-[var(--color-text-primary)]">{title}</h2>
-  <p class="text-[var(--color-text-secondary)]">{description}</p>
+  <div class="flex flex-col gap-3">
+    {
+      badge && (
+        <p class="text-xs font-semibold tracking-wide text-[var(--color-text-secondary)] uppercase">
+          {badge}
+        </p>
+      )
+    }
+    <h2 class="text-[var(--color-text-primary)]">{title}</h2>
+    <p class="text-[var(--color-text-secondary)]">{description}</p>
+  </div>
   {
     href && (
-      <div class="mt-3">
+      <div class="shrink-0">
         <Button href={href} variant="primary">
           {linkLabel ?? title}
         </Button>

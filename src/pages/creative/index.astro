@@ -1,6 +1,8 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CreativeCard from "../../components/CreativeCard.astro";
+import otter from "../../assets/images/otter/otter-gear-toss.png";
 ---
 
 <BaseLayout
@@ -9,29 +11,50 @@ import CreativeCard from "../../components/CreativeCard.astro";
 >
   <article class="px-6 py-24">
     <div class="mx-auto max-w-[var(--content-max-width)]">
-      <div class="max-w-[var(--reading-max-width)]">
-        <p class="mb-2 text-xs font-semibold tracking-wide text-[var(--color-action-primary)] uppercase">
-          Creative
-        </p>
-        <h1>Creative</h1>
-        <p class="mt-4 text-[var(--color-text-secondary)]">
-          Alongside our software, Clockwork Otter Foundry makes creative work. Here is what is
-          available now and what is on the way.
-        </p>
+      <div
+        class="grid grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-[clamp(14rem,24vw,20rem)_minmax(0,1fr)] md:pt-[10rem]"
+      >
+        <!-- Desktop: the wrapper is 60% of the image height and the image is lifted 40%, so his elbow rests on the first row's top edge. -->
+        <div
+          class="mx-auto w-40 md:relative md:col-start-1 md:row-start-2 md:mx-0 md:aspect-[1024/922] md:w-full"
+        >
+          <Image
+            src={otter}
+            alt="Clockwork Otter Foundry mascot: a smiling otter in brass goggles, a leather vest and a tool belt, tossing a copper gear."
+            widths={[320, 480, 640, 720]}
+            sizes="(min-width: 768px) 20rem, 10rem"
+            format="webp"
+            loading="eager"
+            decoding="async"
+            class="h-auto w-full md:absolute md:top-0 md:left-0 md:w-[calc(100%+2.5rem)] md:max-w-none md:-translate-y-[40%]"
+          />
+        </div>
+        <div class="max-w-[var(--reading-max-width)] md:col-start-2 md:row-start-1">
+          <p
+            class="mb-2 text-xs font-semibold tracking-wide text-[var(--color-action-primary)] uppercase"
+          >
+            Creative
+          </p>
+          <h1>Creative</h1>
+          <p class="mt-4 text-[var(--color-text-secondary)]">
+            Alongside our software, Clockwork Otter Foundry makes creative work. Here is what is
+            available now and what is on the way.
+          </p>
+        </div>
+        <ul class="flex flex-col gap-6 md:col-start-2 md:row-start-2">
+          <CreativeCard
+            title="Copper Leaf Editions"
+            description="A line of coloring books from Clockwork Otter Foundry."
+            href="/copper-leaf/"
+            linkLabel="See the books"
+          />
+          <CreativeCard
+            title="Bardsong"
+            badge="Coming soon"
+            description="Advanced TTRPG Character Builder"
+          />
+        </ul>
       </div>
-      <ul class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
-        <CreativeCard
-          title="Copper Leaf Editions"
-          description="A line of coloring books from Clockwork Otter Foundry."
-          href="/copper-leaf/"
-          linkLabel="See the books"
-        />
-        <CreativeCard
-          title="Bardsong"
-          badge="Coming soon"
-          description="Advanced TTRPG Character Builder"
-        />
-      </ul>
     </div>
   </article>
 </BaseLayout>
