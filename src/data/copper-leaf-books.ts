@@ -124,7 +124,7 @@ export const books: CopperLeafBook[] = [
         alt: "Book spread. On the left, a page of notes headed “Galway Halloween Street Parade, Galway, Ireland”. On the right, a black-and-white line drawing of giant leaf-covered figures, a drummer, a piper and masked lantern bearers in a street at night.",
       },
     ],
-    amazonUrl: null,
+    amazonUrl: "https://www.amazon.com/dp/B0HMQVX3YT",
   },
 ];
 
