@@ -3,14 +3,19 @@ import Button from "./Button.astro";
 
 interface Props {
   title: string;
-  description: string;
+  /** Small uppercase label above the title. */
+  kicker?: string;
+  /** Semibold line directly under the title. */
+  tagline?: string;
+  /** One string per paragraph. */
+  description: string[];
   /** Omit for a non-interactive "coming soon" row. */
   href?: string;
   linkLabel?: string;
   badge?: string;
 }
 
-const { title, description, href, linkLabel, badge } = Astro.props;
+const { title, kicker, tagline, description, href, linkLabel, badge } = Astro.props;
 const quiet = !href;
 ---
 
@@ -24,14 +29,16 @@ const quiet = !href;
 >
   <div class="flex flex-col gap-3">
     {
-      badge && (
-        <p class="text-xs font-semibold tracking-wide text-[var(--color-text-secondary)] uppercase">
-          {badge}
+      (kicker || badge) && (
+        <p class="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-xs font-semibold tracking-wide text-[var(--color-text-secondary)] uppercase">
+          {kicker && <span>{kicker}</span>}
+          {badge && <span>{badge}</span>}
         </p>
       )
     }
     <h2 class="text-[var(--color-text-primary)]">{title}</h2>
-    <p class="text-[var(--color-text-secondary)]">{description}</p>
+    {tagline && <p class="font-semibold text-[var(--color-text-primary)]">{tagline}</p>}
+    {description.map((paragraph) => <p class="text-[var(--color-text-secondary)]">{paragraph}</p>)}
   </div>
   {
     href && (
