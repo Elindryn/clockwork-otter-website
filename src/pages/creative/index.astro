@@ -13,7 +13,7 @@ const srcset = (img: Awaited<ReturnType<typeof getImage>>) => img.srcSet.attribu
 
 <BaseLayout
   title="Creative"
-  description="Creative work from Clockwork Otter Foundry, including the Copper Leaf Editions line of coloring books."
+  description="Creative work from Clockwork Otter Foundry: coloring books from Copper Leaf Editions, with Skylarking Coloring Co., Bardsong and Cauldron & Tome on the way."
 >
   <article class="px-6 py-12 md:py-16">
     <div class="mx-auto max-w-[var(--content-max-width)]">
@@ -42,22 +42,57 @@ const srcset = (img: Awaited<ReturnType<typeof getImage>>) => img.srcSet.attribu
         </div>
         <div class="order-1 max-w-[var(--reading-max-width)] md:order-none md:col-start-2 md:row-start-1">
           <h1>Creative</h1>
+          <p class="mt-4 font-semibold text-[var(--color-text-primary)]">Where imagination takes shape.</p>
           <p class="mt-4 text-[var(--color-text-secondary)]">
-            Alongside our software, Clockwork Otter Foundry makes creative work. Here is what is
-            available now and what is on the way.
+            At Clockwork Otter Foundry, creativity is something to explore, build, and bring to life.
+            Our creative work spans coloring books, imaginative storytelling, and digital tools for the
+            worlds we dream up, and every project begins with curiosity and a passion for thoughtful
+            craftsmanship.
+          </p>
+          <p class="mt-4 text-[var(--color-text-secondary)]">
+            Different audiences. Different experiences. One shared belief: the best creative work invites
+            you to make it your own.
           </p>
         </div>
         <ul class="relative z-10 order-3 flex flex-col gap-6 md:order-none md:col-start-2 md:row-start-2">
           <CreativeCard
-            title="Copper Leaf Editions"
-            description="A line of coloring books from Clockwork Otter Foundry."
+            kicker="Adult coloring books"
+            title="Copper Leaf Editions™"
+            tagline="Artful escapes for curious minds."
+            description={[
+              "A line of coloring books for adults from Clockwork Otter Foundry, thoughtfully designed for people who enjoy exploring the extraordinary through art. Collections draw inspiration from the natural world, remarkable places, cultural traditions, historical curiosities, and the darker corners of imagination.",
+              "Each book is built around a distinctive theme, and many pair detailed illustrations with short editorial notes that add context, history, or story to the artwork.",
+            ]}
             href="/copper-leaf/"
             linkLabel="See the books"
           />
           <CreativeCard
-            title="Bardsong"
+            kicker="Coloring books for kids"
+            title="Skylarking Coloring Co.™"
             badge="Coming soon"
-            description="Advanced TTRPG Character Builder"
+            tagline="Big imaginations start with a little color."
+            description={[
+              "A line of coloring books themed for kids, from Clockwork Otter Foundry. Skylarking books are being designed to spark curiosity, encourage imagination, and make creative play feel welcoming and fun, with plenty of room for personal expression.",
+              "Little hands. Big ideas. Endless possibilities.",
+            ]}
+          />
+          <CreativeCard
+            kicker="Tabletop roleplaying"
+            title="Bardsong"
+            badge="In development"
+            tagline="Every great character has a story worth telling."
+            description={[
+              "An advanced character builder for tabletop roleplaying games. Bardsong is being designed to help players and game masters develop characters with distinctive personalities, histories, and a visual identity that stays recognizable as their stories continue.",
+            ]}
+          />
+          <CreativeCard
+            kicker="Tabletop roleplaying"
+            title="Cauldron &amp; Tome"
+            badge="In development"
+            tagline="Build your world. Chronicle its stories."
+            description={[
+              "A worldbuilding and game-master workspace for tabletop roleplaying games. Cauldron & Tome is being built to bring a setting together in one place: realms, campaigns, characters, creatures, calendars, maps, and the lore that connects them, so the details that make a world feel alive are never lost.",
+            ]}
           />
         </ul>
       </div>
