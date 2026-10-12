@@ -1,8 +1,14 @@
 ---
-import { Image } from "astro:assets";
+import { getImage } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CreativeCard from "../../components/CreativeCard.astro";
 import otter from "../../assets/images/otter/otter-gear-toss.png";
+import portrait from "../../assets/images/otter/otter-smug-mechanic.png";
+
+// One <picture>: the gear-toss otter from md up, the smug portrait below it. The browser fetches only the matching source.
+const wide = await getImage({ src: otter, widths: [320, 480, 640, 720], format: "webp" });
+const narrow = await getImage({ src: portrait, widths: [288, 432, 576, 768], format: "webp" });
+const srcset = (img: Awaited<ReturnType<typeof getImage>>) => img.srcSet.attribute;
 ---
 
 <BaseLayout
@@ -15,21 +21,26 @@ import otter from "../../assets/images/otter/otter-gear-toss.png";
         class="grid grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-[clamp(14rem,24vw,20rem)_minmax(0,1fr)] md:pt-[10rem]"
       >
         <!-- Desktop: the wrapper is 60% of the image height and the image is lifted 40%, so his elbow rests on the first row's top edge. -->
+        <!-- Narrow: the portrait is cropped to its top 80% and sits flush on the first row (-mb-12 cancels the grid gap), which covers the crop line. -->
         <div
-          class="mx-auto w-40 md:relative md:col-start-1 md:row-start-2 md:mx-0 md:aspect-[1024/922] md:w-full"
+          class="order-2 -mb-12 aspect-[1024/1229] w-[min(100%,17rem)] justify-self-center overflow-hidden md:relative md:order-none md:col-start-1 md:row-start-2 md:mb-0 md:aspect-[1024/922] md:w-full md:justify-self-auto md:overflow-visible"
         >
-          <Image
-            src={otter}
-            alt="Clockwork Otter Foundry mascot: a smiling otter in brass goggles, a leather vest and a tool belt, tossing a copper gear."
-            widths={[320, 480, 640, 720]}
-            sizes="(min-width: 768px) 20rem, 10rem"
-            format="webp"
-            loading="eager"
-            decoding="async"
-            class="h-auto w-full md:absolute md:top-0 md:left-0 md:w-[calc(100%+2.5rem)] md:max-w-none md:-translate-y-[40%]"
-          />
+          <picture class="block">
+            <source media="(min-width: 768px)" srcset={srcset(wide)} sizes="20rem" type="image/webp" />
+            <img
+              src={narrow.src}
+              srcset={srcset(narrow)}
+              sizes="17rem"
+              width={portrait.width}
+              height={portrait.height}
+              alt="Clockwork Otter Foundry mascot: an otter in brass goggles and a leather vest."
+              loading="eager"
+              decoding="async"
+              class="h-auto w-full object-top md:absolute md:top-0 md:left-0 md:w-[calc(100%+2.5rem)] md:max-w-none md:-translate-y-[40%]"
+            />
+          </picture>
         </div>
-        <div class="max-w-[var(--reading-max-width)] md:col-start-2 md:row-start-1">
+        <div class="order-1 max-w-[var(--reading-max-width)] md:order-none md:col-start-2 md:row-start-1">
           <p
             class="mb-2 text-xs font-semibold tracking-wide text-[var(--color-action-primary)] uppercase"
           >
@@ -41,7 +52,7 @@ import otter from "../../assets/images/otter/otter-gear-toss.png";
             available now and what is on the way.
           </p>
         </div>
-        <ul class="flex flex-col gap-6 md:col-start-2 md:row-start-2">
+        <ul class="relative z-10 order-3 flex flex-col gap-6 md:order-none md:col-start-2 md:row-start-2">
           <CreativeCard
             title="Copper Leaf Editions"
             description="A line of coloring books from Clockwork Otter Foundry."
