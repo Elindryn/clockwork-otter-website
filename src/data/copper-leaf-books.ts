@@ -51,7 +51,7 @@ export interface ResolvedCopperLeafBook extends CopperLeafBook {
  */
 export const amazonStoreUrl: string | null = null;
 
-const DETAILS = "Coloring book for adults · 30 illustrations · 8.5 × 11 inches";
+const details = (n: number) => `Coloring book for adults · ${n} illustrations · 8.5 × 11 inches`;
 
 export const books: CopperLeafBook[] = [
   {
@@ -61,7 +61,7 @@ export const books: CopperLeafBook[] = [
       "Explore sweeping landscapes, remarkable wildlife, and striking geological formations inspired by America’s national parks. This collection pairs 30 coloring illustrations with short editorial notes about the places they depict, adding a little discovery to every stop along the journey.",
       "From quiet woodland scenes to dramatic vistas, bring your own colors to the beauty of the natural world.",
     ],
-    details: DETAILS,
+    details: details(30),
     cover: {
       file: "CL-001-Cover.png",
       alt: "Cover of Great National Parks of America, subtitled A coloring art expedition, showing a canyon landscape that moves from line drawing to full color.",
@@ -82,10 +82,10 @@ export const books: CopperLeafBook[] = [
     slug: "cl-002",
     title: "The Haunted Atlas",
     description: [
-      "Travel through a world of haunted houses, historic ruins, and places where stories linger. Thirty atmospheric coloring illustrations invite you to explore distinctive architecture and evocative settings, accompanied by short readings about their history and the legends associated with them.",
+      "Travel through a world of haunted houses, historic ruins, and places where stories linger. Fifty atmospheric coloring illustrations invite you to explore distinctive architecture and evocative settings, accompanied by short readings about their history and the legends associated with them.",
       "Follow your curiosity through weathered stone, shadowed windows, and the spaces between history and folklore.",
     ],
-    details: DETAILS,
+    details: details(50),
     cover: {
       file: "CL-002-Cover.png",
       alt: "Cover of The Haunted Atlas, subtitled Legendary Houses, Castles & Ruins to Color, showing a three-storey townhouse that moves from line drawing to full color.",
@@ -106,10 +106,10 @@ export const books: CopperLeafBook[] = [
     slug: "cl-006",
     title: "Halloween & Spirit Traditions Around the World",
     description: [
-      "Explore Halloween and related traditions of remembrance, folklore, and the spirit world through 30 coloring illustrations. Accompanying editorial notes introduce the customs and cultural settings behind each scene, revealing different ways communities celebrate, remember, and tell stories about the unknown.",
+      "Explore Halloween and related traditions of remembrance, folklore, and the spirit world through 50 coloring illustrations. Accompanying editorial notes introduce the customs and cultural settings behind each scene, revealing different ways communities celebrate, remember, and tell stories about the unknown.",
       "A coloring journey through seasonal celebrations and enduring traditions, with something new to discover along the way.",
     ],
-    details: DETAILS,
+    details: details(50),
     cover: {
       file: "CL-006-Cover.png",
       alt: "Cover of Halloween & Spirit Traditions Around the World, subtitled A Spooky Coloring Journey, showing lanterns and pumpkins that move from line drawing to full color.",
