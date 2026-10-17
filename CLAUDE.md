@@ -37,6 +37,8 @@ Logo assets: `../clockwork-otter-brand/assets/` — production SVGs (`ProdHorizW
 
 Precision engineering workshop: restrained, professional, calm, spacious, technically confident. Avoid startup aesthetics, excessive animation, flashy gradients, oversized hero sections, decorative effects.
 
+The Foundry UI toolkit lives at `../Wolfgang/methodology/design/FOUNDRY_UI_TOOLKIT.md`; CLOCKWORK-DS-1 (2026-10-17) was an owner-approved, bounded exception (dimensional primary button only) — the rules above otherwise stand.
+
 ## Technology Stack
 
 - **Astro** — static-first site generation, islands architecture, minimal shipped JS by default

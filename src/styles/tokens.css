@@ -193,6 +193,17 @@
   --button-primary-background-hover: color-mix(in srgb, var(--color-action-primary) 85%, black);
   --button-primary-background-active: color-mix(in srgb, var(--button-primary-background-hover) 85%, black);
   --button-primary-text: var(--color-surface);
+
+  /* Dimensional primary button (CLOCKWORK-DS-1). These originate from the
+   * Foundry UI toolkit (pattern 1), not from 06-design-tokens.md — they
+   * must be mirrored into ../clockwork-otter-brand/docs/foundations/
+   * 06-design-tokens.md. Shadow color is a token; alphas are kept low for
+   * a restrained, public-site look. */
+  --button-shadow-rgb: 43 43 43; /* Foundry Charcoal */
+  --button-highlight-alpha: 0.22;
+  --button-shade-alpha: 0.18;
+  --button-contact-alpha: 0.28;
+  --button-ambient-alpha: 0.16;
   /*
    * Raw Copper (--color-action-secondary) measures only 3.54:1 against
    * the page background as text, below the 4.5:1 WCAG AA minimum (Phase
